@@ -8,6 +8,7 @@
 ## @param B1 & B2 : Bs and Bw represent the bearings of the antennas with the strongest (B1) RSS
 ## 		and second strongest (B2)
 ## @author Bryant Dossman: bdossman (at) gmail (dot) com
+## 
 
 
 
