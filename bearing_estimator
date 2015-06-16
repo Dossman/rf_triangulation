@@ -8,8 +8,7 @@
 ## @param B1 & B2 : Bs and Bw represent the bearings of the antennas with the strongest (B1) RSS
 ## 		and second strongest (B2)
 ## @author Bryant Dossman: bdossman (at) gmail (dot) com
-## TODO:1) determine whether positive or negative function will be need based on B1 and B2
-##		2) create output = estimated bearing, tower
+
 
 
 bearing_estimator <- function(model.fit, r, B1, B2){
