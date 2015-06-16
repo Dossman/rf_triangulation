@@ -4,11 +4,11 @@ This is a project in which we will attempt to develop code that enable users of 
 
 Project Goals:
 
-1) Estimate bearings from any radio reciever given recieved signal strengths on neighboring antennas attached.
+1) Estimate bearings from any radio reciever given recieved signal strengths on neighboring antennas.
 
 2) With simultaenous detections on multiple towers, attempt to estimate one bearing from each tower detection.
 
-3) Use each towers bearing (at least 2) to triangulation (or biangulate) a location.
+3) Use a bearing from every tower in which a tag was detected at and (at least 2) triangulate (or biangulate) a location.
 
 End Products:
 
