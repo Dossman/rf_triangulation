@@ -12,7 +12,7 @@ Project Goals:
 
 End Products:
 
-1) Stand a long methodology for application on any number of array configurations.
+1) Stand alone methodology for application on any number of array configurations.
 
 2) Use as part of a 2 method system in which triangulation constricts parameter space for another localization method. 
 
