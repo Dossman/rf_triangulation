@@ -1,0 +1,220 @@
+windowApply = function(x, y, w, f) {#
+    if (length(x) != length(y))#
+        stop("x and y must have the same length")#
+    if (any(diff(x) < 0))#
+        stop("x must be in non-decreasing order")#
+    if (w < 0)#
+        stop("w must be non-negative")#
+    if (!is.function(f) || !(length(formals(f)) %in% 1:2))#
+        stop("f must be a function of a single variable")#
+    if (length(formals(f)) == 1)#
+        usefun = function(x, y) f(y)#
+    else#
+        usefun = f#
+    i = 1L#
+    j = 1L#
+    n = length(x)#
+    rv = rep(NA, n)#
+    while (j <= n) {#
+        if (x[j] - x[i] <= w) {#
+            j <- j + 1L#
+        } else {#
+            iwin = i:(j - 1L)#
+            rv[i] = usefun(x[iwin], y[iwin])#
+            i <- i + 1L#
+        }#
+    }#
+    if (i <= n) {#
+        iwin = i:n#
+        rv[n] = usefun(x[iwin], y[iwin])#
+    }#
+    return(rv)#
+}
+time = seq(1:10,10)
+time = seq(1,10,10)
+time
+time = seq(1,10,by-10)
+time = sort(rep(seq(1:10),10))
+time
+temp = rnorm(100, time*2+20, 6)
+temp
+plot(temp~time)
+windowApply(time,temp,w=1, mean)
+windowApply(time,temp,1, mean)
+windowApply(time,temp,1, mean())
+windowApply(time,temp,1, mean)
+windowApply(time,temp,10, mean)
+windowApply(time,temp, mean)
+windowApply(time,temp, 1,mean)
+windowApply(time,temp, iwin=1,mean)
+windowApply(time,temp, i=1,mean)
+windowApply(time,temp, i=2,mean)
+windowApply(time,temp,2,mean)
+windowApply(time,temp,w=2,mean)
+windowApply(time,temp,w=5,mean)
+install.packages(PerformanceAnalytics)
+install.packages(PerformanceAnalytics)
+install.packages("PerformanceAnalytics")
+library(PerformanceAnalytics)
+data(managers)
+head(managers)
+managers[,1,drop=FALSE]
+managers[,1]
+managers[,1, drop=FALSE]
+managers[,1, drop=FALSE]
+managers[,1, drop=FALSE]
+managers[,2, drop=FALSE]
+managers[,1:2, drop=FALSE]
+apply.rolling(managers[,1,drop=FALSE], FUN="mean", width=36)
+apply.rolling(managers[,1,drop=FALSE], FUN="mean", width=36)
+apply.rolling(managers[,1,drop=FALSE], FUN="mean", width=36, na.rm=T)
+managers[,1, drop=FALSE]
+apply.rolling(managers[,1,drop=FALSE], FUN="mean", width=12, na.rm=T)
+apply.rolling(managers[,1,drop=FALSE], FUN="mean", width=35, na.rm=T)
+managers[,1, drop=FALSE]
+apply.rolling(managers[,1,drop=FALSE], FUN="mean", width=35, na.rm=T)
+apply.rolling(managers[,1,drop=FALSE], FUN="mean", width=36, na.rm=T)
+nrow(apply.rolling(managers[,1,drop=FALSE], FUN="mean", width=36, na.rm=T))
+nrow(managers[,1, drop=FALSE])
+nrow(apply.rolling(managers[,1,drop=FALSE], FUN="mean", width=360, na.rm=T))
+nrow(apply.rolling(managers[,1,drop=FALSE], FUN="mean", width=100, na.rm=T))
+nrow(apply.rolling(managers[,1,drop=FALSE], FUN="mean", width=12, na.rm=T))
+nrow(apply.rolling(managers[,1,drop=FALSE], FUN="mean", width=12))
+nrow(apply.rolling(managers[,1,drop=FALSE], FUN="mean", width=36))
+time = sort(rep(seq(1:100)))
+time
+temp
+temp = rnorm(100, time*2+20, 6)
+windowApply(time,temp,w=5, mean)
+windowApply(time,temp,5, mean)
+windowApply(time,temp,50, mean)
+df <- data.frame(time=time, temp=temp)
+windowApply(df$time,df$temp,50, mean)
+windowApply(df$time,df$temp,5, mean)
+windowApply(df$time,df$temp,as.numeric(5), mean)
+windowApply(df$time,df$temp, mean)
+df
+plot(df)
+windowApply(df$time,df$temp, w=10,sum)
+windowApply(df$time,df$temp, w=10, sum)
+windowApply(df$time,df$temp, w=10, cumsum)
+windowApply(df$time,df$temp, w=10, mean)
+windowApply(df$time,df$temp, w=10, function(x) x+1)
+windowApply(df$time,df$temp, w=50, mean)
+windowApply(df$time,df$temp, w=50, function(x) x+1)
+warnings
+warnings()
+windowApply
+x <- c(1,1,2,1.8,1,1)
+x <- c(1,1,2,1.8,1,1)#
+df <- data.frame(ant.bearing = rep(seq(0,300, by = 60)5), sig = rnorm(30, x*50,5), ts = rep(seq(1:6),5)
+df <- data.frame(ant.bearing = rep(seq(0,300, by = 60)5), sig = rnorm(30, x*50,5), ts = rep(seq(1:6),5))
+df <- data.frame(ant.bearing = rep(seq(0,300, by = 60),5), sig = rnorm(30, x*50,5), ts = rep(seq(1:6),5))
+df
+x <- c(1,1,2,1.8,1,1)#
+df <- data.frame(ant.bearing = rep(seq(0,300, by = 60),5), sig = rnorm(30, x*50,5), ts = sort(rep(seq(1:6),5)))
+df
+x <- c(1,1,2,1.8,1,1)#
+df <- data.frame(ant.bearing = rep(seq(0,300, by = 60),5), sig = rnorm(30, x*50,5), ts = sort(rep(seq(1:5),6)))
+df
+x <- c(1,1,2,1.8,1,1)#
+df <- data.frame(ant.bearing = rep(seq(0,300, by = 60),5), sig = rnorm(30, x*50,10), ts = sort(rep(seq(1:5),6)))
+df
+rnorm(30, x*50,10)
+rnorm(30, x*50,10)[1:6]
+round(rnorm(30, x*50,10)[1:6])
+df <- data.frame(ant.bearing = seq(0,300, by=60), sig = c(44, 60, 98, 91, 58, 52), ts=1)
+df
+direction.finder <- function(dat){#
+	# finding bearing with max signal strength#
+	max <- dat[dat$sig == max(dat$sig),][1,]#
+	# finding signal strengths of neighbor antennas and pulling out which has highest#
+	left  = dat[dat$ant.bearing==max$ant.bearing-60,]#
+	right = dat[dat$ant.bearing==max$ant.bearing+60,]#
+	if(max$ant.bearing==0)#
+		left = dat[dat$ant.bearing==300,]#
+	if(max$ant.bearing==300)#
+		right = dat[dat$ant.bearing==0,]#
+}
+direction.finder(df)
+dat <- direction.finder(df)
+dat
+direction.finder <- function(dat){#
+	# finding bearing with max signal strength#
+	max <- dat[dat$sig == max(dat$sig),][1,]#
+	# finding signal strengths of neighbor antennas and pulling out which has highest#
+	left  = dat[dat$ant.bearing==max$ant.bearing-60,]#
+	right = dat[dat$ant.bearing==max$ant.bearing+60,]#
+	if(max$ant.bearing==0)#
+		left = dat[dat$ant.bearing==300,]#
+	if(max$ant.bearing==300)#
+		right = dat[dat$ant.bearing==0,]#
+	dat <- rbind(max, left, right)#
+}
+dat
+dat <- direction.finder(df)
+dat
+direction.finder <- function(dat){#
+	# finding bearing with max signal strength#
+	max <- dat[dat$sig == max(dat$sig),][1,]#
+	# finding signal strengths of neighbor antennas and pulling out which has highest#
+	left  = dat[dat$ant.bearing==max$ant.bearing-60,]#
+	right = dat[dat$ant.bearing==max$ant.bearing+60,]#
+	if(max$ant.bearing==0)#
+		left = dat[dat$ant.bearing==300,]#
+	if(max$ant.bearing==300)#
+		right = dat[dat$ant.bearing==0,]#
+	sub = right#
+	if(left$sig>>right$sig)#
+		sub = left#
+	dat <- rbind(max, left, right)#
+}
+direction.finder <- function(dat){#
+	# finding bearing with max signal strength#
+	max <- dat[dat$sig == max(dat$sig),][1,]#
+	# finding signal strengths of neighbor antennas and pulling out which has highest#
+	left  = dat[dat$ant.bearing==max$ant.bearing-60,]#
+	right = dat[dat$ant.bearing==max$ant.bearing+60,]#
+	if(max$ant.bearing==0)#
+		left = dat[dat$ant.bearing==300,]#
+	if(max$ant.bearing==300)#
+		right = dat[dat$ant.bearing==0,]#
+	sub = right#
+	if(left$sig >> right$sig)#
+		sub = left#
+	dat <- rbind(max, left, right)#
+}
+direction.finder <- function(dat){#
+	# finding bearing with max signal strength#
+	max <- dat[dat$sig == max(dat$sig),][1,]#
+	# finding signal strengths of neighbor antennas and pulling out which has highest#
+	left  = dat[dat$ant.bearing==max$ant.bearing-60,]#
+	right = dat[dat$ant.bearing==max$ant.bearing+60,]#
+	if(max$ant.bearing==0)#
+		left = dat[dat$ant.bearing==300,]#
+	if(max$ant.bearing==300)#
+		right = dat[dat$ant.bearing==0,]#
+	sub = right#
+	if(left$sig > right$sig)#
+		sub = left#
+	dat <- rbind(max, left, right)#
+}
+dat <- direction.finder(df)
+dat
+direction.finder <- function(dat){#
+	# finding bearing with max signal strength#
+	max <- dat[dat$sig == max(dat$sig),][1,]#
+	# finding signal strengths of neighbor antennas and pulling out which has highest#
+	left  = dat[dat$ant.bearing==max$ant.bearing-60,]#
+	right = dat[dat$ant.bearing==max$ant.bearing+60,]#
+	if(max$ant.bearing==0)#
+		left = dat[dat$ant.bearing==300,]#
+	if(max$ant.bearing==300)#
+		right = dat[dat$ant.bearing==0,]#
+	sub = right#
+	if(left$sig > right$sig)#
+		sub = left#
+	dat <- rbind(max, sub)#
+}
+dat <- direction.finder(df)
+dat
