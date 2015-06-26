@@ -6,5 +6,28 @@
 ## antenna bearing with next strongest singal, and signal strength for that antenna.
 
 process_data <- function(df=data){
-	
+	df <- split(df, paste(df$ts, df$tower))
+		
+	pairs <- cbind(1:nrow(df), c(2:nrow(df), 1))
+
+    best.row <- which.max(df$sig[pairs[,1]] + df$sig[pairs[,2]])
+
+    df[sort(pairs[best.row,]),]
+
 }
+
+
+## Alternative method...likely to be more robust if I can get it to work correctly.
+
+# process_data <- function(df=data){
+	# n.ants = unique(df$ant.bearing)
+	# pairs  = cbind(n.ants[1:length(n.ants)], c(n.ants[2:length(n.ants)], n.ants[1]))
+	
+	# best.row <- which.max(df[df$ant.bearing %in% pairs[,1], "sig"] + df[df$ant.bearing %in% pairs[,2], "sig"])
+
+	# df[df$ant.bearing %in% pairs[best.row,],]
+
+# }
+
+
+
