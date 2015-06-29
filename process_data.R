@@ -5,15 +5,31 @@
 ## detected), antenna bearing with max signal strength, signal strength for that antenna, 
 ## antenna bearing with next strongest singal, and signal strength for that antenna.
 
+
 process_data <- function(df=data){
-	df <- split(df, paste(df$ts, df$tower))
-		
+	require(plyr)
+	
+	df$tt <- paste(df$ts, df$tower, sep="_") # creates unique identifier at each ts 
+											 # for each tower
+	
+	df <- split(df, df$tt) # splits dataset into list with sections identified by tt
+	
+	## TO DO: NEED STEP TO CALCULATE SIGNAL STRENGTH RATIO..THEN PROCEED
+					
+	df <-  ldply(lapply(df, strongest_signal)) # smashes things back into a data frame
+	
+	return(df)
+	
+}
+
+
+strongest_signal <- function(df){
+	
 	pairs <- cbind(1:nrow(df), c(2:nrow(df), 1))
 
     best.row <- which.max(df$sig[pairs[,1]] + df$sig[pairs[,2]])
 
     df[sort(pairs[best.row,]),]
-
 }
 
 
