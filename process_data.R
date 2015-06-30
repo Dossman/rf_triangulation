@@ -13,10 +13,10 @@ process_data <- function(df=data){
 											 # for each tower
 	
 	df <- split(df, df$tt) # splits dataset into list with sections identified by tt
+						
+	df <-  lapply(df, strongest_signal) # smashes things back into a data frame
 	
-	## TO DO: NEED STEP TO CALCULATE SIGNAL STRENGTH RATIO..THEN PROCEED
-					
-	df <-  ldply(lapply(df, strongest_signal)) # smashes things back into a data frame
+	#df <- ldply(df)
 	
 	return(df)
 	
@@ -28,8 +28,11 @@ strongest_signal <- function(df){
 	pairs <- cbind(1:nrow(df), c(2:nrow(df), 1))
 
     best.row <- which.max(df$sig[pairs[,1]] + df$sig[pairs[,2]])
+	
+    df <- df[sort(pairs[best.row,]),]
 
-    df[sort(pairs[best.row,]),]
+    df[order(df$sig, decreasing=T),]
+
 }
 
 
