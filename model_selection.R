@@ -12,10 +12,19 @@
 
 model_selection <- function(simulate=T, data=NULL,  ){
 		
-		df = data # rename datafile
+	df = data # rename datafile
 		
-	 if (simulate=T)
-	 	## create new dataset from simulated data
+	if (simulate=T)
+		 ## create new dataset from simulated data
+	 
+	tmp <- process_data(df)			## split ground truthing data set into a list of dataframes seperated by timestamps
+					        ## for each ts, subset the data by the 2 strongest antennas
+	
+						## TODO: use bearing estimator to calculate signal strength ratio-- 
+						## adjust bearing estimator so that it doesn't use a model. bearing_estimator_lite
+	
+	
+			
 	 
 	 
 }
