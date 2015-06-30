@@ -257,7 +257,6 @@ process_data <- function(df=data){#
 process_data(data)
 sample
 split(sample, paste(sample$ts, sample$tower))
-split(sample, paste(sample$ts, sample$tower))
 process_data <- function(df=data){#
 	df$tt <- paste(df$ts, df$tower, sep="_")#
 	df <- split(df, df$tt)#
@@ -468,7 +467,6 @@ process_data <- function(df=data){#
 	return(df)#
 }
 process_data(sample)
-sample
 sample
 ldply(sample)
 sample <- ldply(sample)
@@ -812,7 +810,6 @@ process_data(sample)
 sample
 test
 test <- sample[1:6,]
-strongest_signal(test)
 strongest_signal(test)
 strongest_signal <- function(df){#
 	pairs <- cbind(1:nrow(df), c(2:nrow(df), 1))#
