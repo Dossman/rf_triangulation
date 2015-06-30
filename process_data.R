@@ -6,7 +6,7 @@
 ## antenna bearing with next strongest singal, and signal strength for that antenna.
 
 
-process_data <- function(df=data){
+process_data <- function(df=data, model.fit=fit){
 	require(plyr)
 	
 	df$tt <- paste(df$ts, df$tower, sep="_") # creates unique identifier at each ts 
@@ -17,6 +17,10 @@ process_data <- function(df=data){
 	df <-  lapply(df, strongest_signal) # smashes things back into a data frame
 	
 	#df <- ldply(df)
+	
+	#df <- ldply(lapply(df, function(x) bearing_estimator(model.fit=fit, df=x)))
+	
+	#df <- df[order(df$ts),]
 	
 	return(df)
 	
