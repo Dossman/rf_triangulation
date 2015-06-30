@@ -12,11 +12,12 @@
 
 
 
-bearing_estimator <- function(model.fit, df){
+bearing_estimator <- function(model.fit, df, GroundTruthing=F){
 	r  = df$sig[2]/df$sig[1] # calculated ratio of signal strengths Bw/Bs
 	B1 = df$ant.bearing[1]	 # extracts bearing with strongest signal
 	B2 = df$ant.bearing[2]	 # "  "  " 		"		" weakest (relative) signal
 	
+	if(GroundTruthing==T) stop()
 	
 	tmp <- as.circular(B1-B2, type="angles",
 							  units="degrees", 
