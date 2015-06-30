@@ -8,6 +8,7 @@
 ##				  will be 45 degrees
 
 get_degree <- function(P1,P2){
+	require(circular)
 	x1 = P1[1]; y1=P1[2]; x2 = P2[2]; y2=P2[1];
-	deg(atan2(y2-y1, x2-x1))%%360
+	circular(deg(atan2(y2-y1, x2-x1)), modulo="2pi", units="degree", type="directions", template="geographics")[[1]]]
 }
