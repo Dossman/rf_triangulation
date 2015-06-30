@@ -12,13 +12,19 @@
 
 
 
-bearing_estimator <- function(model.fit, r, B1, B2){
+bearing_estimator <- function(model.fit, df){
+	r  = df$sig[2]/df$sig[1] # calculated ratio of signal strengths Bw/Bs
+	B1 = df$ant.bearing[1]	 # extracts bearing with strongest signal
+	B2 = df$ant.bearing[2]	 # "  "  " 		"		" weakest (relative) signal
+	
+	
 	tmp <- as.circular(B1-B2, type="angles",
 							  units="degrees", 
 							  modulo="asis", 
 							  template="none", 
 							  zero="0", 
 							  rotation="counter")
+							  
 	tmp <- ifelse(abs(tmp)==300, tmp*-1, tmp)
 	dir = ifelse(tmp > 0, "right","left")
 		
@@ -28,6 +34,6 @@ bearing_estimator <- function(model.fit, r, B1, B2){
 
 	bearing = b.init + predict(model.fit, newdata = newdata)
 	
-	data.frame(dir, bearing)
+	data.frame(dir, bearing, tower = unique(df$tower), ts = df$ts[1])
 	
 }
