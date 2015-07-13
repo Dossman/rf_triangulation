@@ -8,25 +8,48 @@
 ## @param B1 & B2 : Bs and Bw represent the bearings of the antennas with the strongest (B1) RSS
 ## 		and second strongest (B2)
 ## @author Bryant Dossman: bdossman (at) gmail (dot) com
+## TODO: 1) Add GroundTruthing capability
+##		 2) Update to accomodate arrays with fewer antennas
+
+		
 
 
 
-bearing_estimator <- function(model.fit, r, B1, B2){
+bearing_estimator <- function(model.fit, df, GroundTruthing=F){
+	r  				= df$sig[2]/df$sig[1] # calculated ratio of signal strengths Bw/Bs
+	B1			 	= df$ant.bearing[1]	 # extracts bearing with strongest signal
+	B2 				= df$ant.bearing[2]	 # "  "  " 		"	weakest (relative) signal
+
+	
+	
+	tmp <- data.frame(r, B1, B2)
+	
+	
+	
+	if(GroundTruthing==T){ ## USE FOR GROUNDTRUTHING
+		return(tmp)
+		stop()
+	}
+	
+	
 	tmp <- as.circular(B1-B2, type="angles",
 							  units="degrees", 
 							  modulo="asis", 
 							  template="none", 
 							  zero="0", 
 							  rotation="counter")
-	tmp <- ifelse(abs(tmp)==300, tmp*-1, tmp)
+							  
+	tmp <- ifelse(abs(tmp)==300, tmp*-1, tmp) # deals with circularity issue in data i.e 300 deg 
+											  # is close 0 degrees
 	dir = ifelse(tmp > 0, "right","left")
 		
 	b.init = ifelse(dir=="left", B1, B2)
 
 	newdata <- data.frame(r = r, dir=dir)
 
-	bearing = b.init + predict(model.fit, newdata = newdata)
+	bearing = b.init + predict(model.fit, newdata = newdata) # uses model output and predict 
+															 # to estimate bearing
 	
-	data.frame(dir, bearing)
+	data.frame(dir, bearing, tower = unique(df$tower), ts = df$ts[1])
 	
 }

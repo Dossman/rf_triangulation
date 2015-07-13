@@ -1,0 +1,1085 @@
+df <- data.frame(time=time, temp=temp)
+windowApply(df$time,df$temp,50, mean)
+windowApply(df$time,df$temp,5, mean)
+windowApply(df$time,df$temp,as.numeric(5), mean)
+windowApply(df$time,df$temp, mean)
+df
+plot(df)
+windowApply(df$time,df$temp, w=10,sum)
+windowApply(df$time,df$temp, w=10, sum)
+windowApply(df$time,df$temp, w=10, cumsum)
+windowApply(df$time,df$temp, w=10, mean)
+windowApply(df$time,df$temp, w=10, function(x) x+1)
+windowApply(df$time,df$temp, w=50, mean)
+windowApply(df$time,df$temp, w=50, function(x) x+1)
+warnings
+warnings()
+windowApply
+x <- c(1,1,2,1.8,1,1)
+x <- c(1,1,2,1.8,1,1)#
+df <- data.frame(ant.bearing = rep(seq(0,300, by = 60)5), sig = rnorm(30, x*50,5), ts = rep(seq(1:6),5)
+df <- data.frame(ant.bearing = rep(seq(0,300, by = 60)5), sig = rnorm(30, x*50,5), ts = rep(seq(1:6),5))
+df <- data.frame(ant.bearing = rep(seq(0,300, by = 60),5), sig = rnorm(30, x*50,5), ts = rep(seq(1:6),5))
+df
+x <- c(1,1,2,1.8,1,1)#
+df <- data.frame(ant.bearing = rep(seq(0,300, by = 60),5), sig = rnorm(30, x*50,5), ts = sort(rep(seq(1:6),5)))
+df
+x <- c(1,1,2,1.8,1,1)#
+df <- data.frame(ant.bearing = rep(seq(0,300, by = 60),5), sig = rnorm(30, x*50,5), ts = sort(rep(seq(1:5),6)))
+df
+x <- c(1,1,2,1.8,1,1)#
+df <- data.frame(ant.bearing = rep(seq(0,300, by = 60),5), sig = rnorm(30, x*50,10), ts = sort(rep(seq(1:5),6)))
+df
+rnorm(30, x*50,10)
+rnorm(30, x*50,10)[1:6]
+round(rnorm(30, x*50,10)[1:6])
+df <- data.frame(ant.bearing = seq(0,300, by=60), sig = c(44, 60, 98, 91, 58, 52), ts=1)
+df
+direction.finder <- function(dat){#
+	# finding bearing with max signal strength#
+	max <- dat[dat$sig == max(dat$sig),][1,]#
+	# finding signal strengths of neighbor antennas and pulling out which has highest#
+	left  = dat[dat$ant.bearing==max$ant.bearing-60,]#
+	right = dat[dat$ant.bearing==max$ant.bearing+60,]#
+	if(max$ant.bearing==0)#
+		left = dat[dat$ant.bearing==300,]#
+	if(max$ant.bearing==300)#
+		right = dat[dat$ant.bearing==0,]#
+}
+direction.finder(df)
+dat <- direction.finder(df)
+dat
+direction.finder <- function(dat){#
+	# finding bearing with max signal strength#
+	max <- dat[dat$sig == max(dat$sig),][1,]#
+	# finding signal strengths of neighbor antennas and pulling out which has highest#
+	left  = dat[dat$ant.bearing==max$ant.bearing-60,]#
+	right = dat[dat$ant.bearing==max$ant.bearing+60,]#
+	if(max$ant.bearing==0)#
+		left = dat[dat$ant.bearing==300,]#
+	if(max$ant.bearing==300)#
+		right = dat[dat$ant.bearing==0,]#
+	dat <- rbind(max, left, right)#
+}
+dat
+dat <- direction.finder(df)
+dat
+direction.finder <- function(dat){#
+	# finding bearing with max signal strength#
+	max <- dat[dat$sig == max(dat$sig),][1,]#
+	# finding signal strengths of neighbor antennas and pulling out which has highest#
+	left  = dat[dat$ant.bearing==max$ant.bearing-60,]#
+	right = dat[dat$ant.bearing==max$ant.bearing+60,]#
+	if(max$ant.bearing==0)#
+		left = dat[dat$ant.bearing==300,]#
+	if(max$ant.bearing==300)#
+		right = dat[dat$ant.bearing==0,]#
+	sub = right#
+	if(left$sig>>right$sig)#
+		sub = left#
+	dat <- rbind(max, left, right)#
+}
+direction.finder <- function(dat){#
+	# finding bearing with max signal strength#
+	max <- dat[dat$sig == max(dat$sig),][1,]#
+	# finding signal strengths of neighbor antennas and pulling out which has highest#
+	left  = dat[dat$ant.bearing==max$ant.bearing-60,]#
+	right = dat[dat$ant.bearing==max$ant.bearing+60,]#
+	if(max$ant.bearing==0)#
+		left = dat[dat$ant.bearing==300,]#
+	if(max$ant.bearing==300)#
+		right = dat[dat$ant.bearing==0,]#
+	sub = right#
+	if(left$sig >> right$sig)#
+		sub = left#
+	dat <- rbind(max, left, right)#
+}
+direction.finder <- function(dat){#
+	# finding bearing with max signal strength#
+	max <- dat[dat$sig == max(dat$sig),][1,]#
+	# finding signal strengths of neighbor antennas and pulling out which has highest#
+	left  = dat[dat$ant.bearing==max$ant.bearing-60,]#
+	right = dat[dat$ant.bearing==max$ant.bearing+60,]#
+	if(max$ant.bearing==0)#
+		left = dat[dat$ant.bearing==300,]#
+	if(max$ant.bearing==300)#
+		right = dat[dat$ant.bearing==0,]#
+	sub = right#
+	if(left$sig > right$sig)#
+		sub = left#
+	dat <- rbind(max, left, right)#
+}
+dat <- direction.finder(df)
+dat
+direction.finder <- function(dat){#
+	# finding bearing with max signal strength#
+	max <- dat[dat$sig == max(dat$sig),][1,]#
+	# finding signal strengths of neighbor antennas and pulling out which has highest#
+	left  = dat[dat$ant.bearing==max$ant.bearing-60,]#
+	right = dat[dat$ant.bearing==max$ant.bearing+60,]#
+	if(max$ant.bearing==0)#
+		left = dat[dat$ant.bearing==300,]#
+	if(max$ant.bearing==300)#
+		right = dat[dat$ant.bearing==0,]#
+	sub = right#
+	if(left$sig > right$sig)#
+		sub = left#
+	dat <- rbind(max, sub)#
+}
+dat <- direction.finder(df)
+dat
+library(sensorgnome)#
+library(circular)#
+source("model_selection.r")#
+source("bearing_estimator.r")#
+source("direction_finding.r")#
+#
+###
+tower1 <- list(ant1 = makeYagi(5, c(0,0,10), 0, "horizontal"),#
+			  ant2 = makeYagi(5, c(0,0,10), 60, "horizontal"),#
+			  ant3 = makeYagi(5, c(0,0,10), 120, "horizontal"),#
+			  ant4 = makeYagi(5, c(0,0,10), 180, "horizontal"),#
+			  ant5 = makeYagi(5, c(0,0,10), 240, "horizontal"),#
+			  ant6 = makeYagi(5, c(0,0,10), 300, "horizontal")#
+			  )#
+tower2 <- list(ant1 = makeYagi(5, c(100,100,10), 0, "horizontal"),#
+			   ant2 = makeYagi(5, c(100,100,10), 0, "horizontal"),#
+			   ant3 = makeYagi(5, c(100,100,10), 0, "horizontal"),#
+			   ant4 = makeYagi(5, c(100,100,10), 0, "horizontal"),#
+			   ant5 = makeYagi(5, c(100,100,10), 0, "horizontal"),#
+			   ant6 = makeYagi(5, c(0,0,10), 300, "horizontal")#
+			  )#
+tower3 <- list(ant1 = makeYagi(5, c(-50,50,10), 0, "horizontal"),#
+			   ant2 = makeYagi(5, c(-50,50,10), 0, "horizontal"),#
+			   ant3 = makeYagi(5, c(-50,50,10), 0, "horizontal"),#
+			   ant4 = makeYagi(5, c(-50,50,10), 0, "horizontal"),#
+			   ant5 = makeYagi(5, c(-50,50,10), 0, "horizontal"),#
+			   ant6 = makeYagi(5, c(-50,50,10), 0, "horizontal")#
+			  )#
+array <- list(tower1,tower2, tower3)#
+velocity = c(runif(2, -2, 2), 0)#
+#
+## constant height#
+#
+height = 10#
+#
+## centred at (0, 0, 0)#
+#
+loc0 = c(runif(2, -100, 100), height)#
+#
+## path time interval is [-100, 100] seconds; tag bursts every 5 seconds#
+#
+t = seq(from = -300, to = 300, by = 5)#
+n = length(t)#
+## path: n x 3 matrix giving x, y, z at each location#
+#
+path =  t(t(outer(t, velocity, `*`)) + loc0)#
+#
+tx = makeOmni(pos=path[1,], axis="vertical")#
+#
+## calculate relative signal strength at each receiver at each point in time#
+#
+tx$pos = path#
+#
+tower1 = lapply(tower1, function(x, y) friis(x, y), tx)#
+tower1 = stack(tower1)#
+tower1$tower = 1#
+tower2 = lapply(tower2, function(x, y) friis(x, y), tx)#
+tower2 = stack(tower2)#
+tower2$tower = 2#
+tower3 = lapply(tower3, function(x, y) friis(x, y), tx)#
+tower3 = stack(tower3)#
+tower3$tower = 3#
+### This code below processes raw data#
+### and converts into a format that is useable to the bearing estimating functions#
+### TODO: Wrap this all up into a function.#
+sample <- as.data.frame(rbind(tower1,tower2,tower3))#
+#
+names(sample) <- c("sig","ant.bearing", "tower")#
+#
+sample$t <- rep(t,6)#
+#
+levels(sample$ant.bearing) <- c(0,60,120,180,240,300)#
+#
+sample$ant.bearing <- as.numeric(as.character(sample$ant.bearing))#
+#
+sample <- sample[order(sample$t),]#
+#
+sample$tt <- paste(sample$t, sample$tower, sep="_")
+sample
+sample[1:6]
+sample[1:6,]
+data <- sample[1:6,]
+process_data <- function(df=data){#
+	df <- split(df, paste(df$ts, df$tower))#
+	pairs <- cbind(1:nrow(df), c(2:nrow(df), 1))#
+#
+    best.row <- which.max(df$sig[pairs[,1]] + df$sig[pairs[,2]])#
+#
+    df[sort(pairs[best.row,]),]#
+#
+}
+process_data(data)
+data
+nrow(data)
+process_data(df = data)
+df= data
+df <- split(df, paste(df$ts, df$tower))
+df
+process_data <- function(df=data){#
+	#df <- split(df, paste(df$ts, df$tower))#
+	pairs <- cbind(1:nrow(df), c(2:nrow(df), 1))#
+#
+    best.row <- which.max(df$sig[pairs[,1]] + df$sig[pairs[,2]])#
+#
+    df[sort(pairs[best.row,]),]#
+#
+}
+process_data(data)
+sample
+split(sample, paste(sample$ts, sample$tower))
+process_data <- function(df=data){#
+	df$tt <- paste(df$ts, df$tower, sep="_")#
+	df <- split(df, df$tt)#
+	pairs <- cbind(1:nrow(df), c(2:nrow(df), 1))#
+#
+    best.row <- which.max(df$sig[pairs[,1]] + df$sig[pairs[,2]])#
+#
+    df[sort(pairs[best.row,]),]#
+#
+}
+df =  sample
+df <- split(df, df$tt)
+df
+strongest_signal <- function(df){#
+	pairs <- cbind(1:nrow(df), c(2:nrow(df), 1))#
+#
+    best.row <- which.max(df$sig[pairs[,1]] + df$sig[pairs[,2]])#
+#
+    df[sort(pairs[best.row,]),]#
+}
+process_data <- function(df=data){#
+	df$tt <- paste(df$ts, df$tower, sep="_") # creates unique identifier at each ts #
+											 # for each tower#
+	df <- split(df, df$tt) # splits dataset into list with sections identified by tt				#
+	lapply(df, strongest_signal())	#
+#
+}#
+strongest_signal <- function(df){#
+	pairs <- cbind(1:nrow(df), c(2:nrow(df), 1))#
+#
+    best.row <- which.max(df$sig[pairs[,1]] + df$sig[pairs[,2]])#
+#
+    df[sort(pairs[best.row,]),]#
+}
+process_data(sample)
+process_data(df = sample)
+lapply(df, strongest_signal())
+lapply(df, strongest_signal(df))
+lapply(df, strongest_signal)
+process_data <- function(df=data){#
+	df$tt <- paste(df$ts, df$tower, sep="_") # creates unique identifier at each ts #
+											 # for each tower#
+	df <- split(df, df$tt) # splits dataset into list with sections identified by tt				#
+	lapply(df, strongest_signal	#
+#
+}#
+strongest_signal <- function(df){#
+	pairs <- cbind(1:nrow(df), c(2:nrow(df), 1))#
+#
+    best.row <- which.max(df$sig[pairs[,1]] + df$sig[pairs[,2]])#
+#
+    df[sort(pairs[best.row,]),]#
+}
+process_data <- function(df=data){#
+	df$tt <- paste(df$ts, df$tower, sep="_") # creates unique identifier at each ts #
+											 # for each tower#
+	df <- split(df, df$tt) # splits dataset into list with sections identified by tt				#
+	lapply(df, strongest_signal)#
+}#
+strongest_signal <- function(df){#
+	pairs <- cbind(1:nrow(df), c(2:nrow(df), 1))#
+#
+    best.row <- which.max(df$sig[pairs[,1]] + df$sig[pairs[,2]])#
+#
+    df[sort(pairs[best.row,]),]#
+}
+process_data(sample)
+sample
+process_data(sample)
+head(sample)
+names(sample)
+names(sample)[4]
+names(sample)[4] <- "ts"
+process_data(sample)
+require(plyr)
+process_data <- function(df=data){#
+	require(plyr)#
+	df$tt <- paste(df$ts, df$tower, sep="_") # creates unique identifier at each ts #
+											 # for each tower#
+	df <- split(df, df$tt) # splits dataset into list with sections identified by tt				#
+	df <-  ldply(lapply(df, strongest_signal))#
+	return(df)#
+}
+process_data(sample)
+list_to_df <- function(listfordf){#
+  if(!is.list(named.list)) stop("it should be a list")#
+#
+  df <- list(list.element = listfordf)#
+  class(df) <- c("tbl_df", "data.frame")#
+  attr(df, "row.names") <- .set_row_names(length(listfordf))#
+#
+  if (!is.null(names(listfordf))) {#
+    df$name <- names(listfordf)#
+  }#
+#
+  df#
+}
+process_data <- function(df=data){#
+	require(plyr)#
+	df$tt <- paste(df$ts, df$tower, sep="_") # creates unique identifier at each ts #
+											 # for each tower#
+	df <- split(df, df$tt) # splits dataset into list with sections identified by tt				#
+	df <-  list_to_df(lapply(df, strongest_signal))#
+	return(df)#
+}
+list_to_df <- function(listfordf){#
+  if(!is.list(named.list)) stop("it should be a list")#
+#
+  df <- list(list.element = listfordf)#
+  class(df) <- c("tbl_df", "data.frame")#
+  attr(df, "row.names") <- .set_row_names(length(listfordf))#
+#
+  if (!is.null(names(listfordf))) {#
+    df$name <- names(listfordf)#
+  }#
+#
+  df#
+}
+process_data(sample)
+process_data <- function(df=data){#
+	require(plyr)#
+	df$tt <- paste(df$ts, df$tower, sep="_") # creates unique identifier at each ts #
+											 # for each tower#
+	df <- split(df, df$tt) # splits dataset into list with sections identified by tt				#
+	df <- lapply(df, strongest_signal)#
+	df <-  list_to_df(df)#
+	return(df)#
+}
+process_data(sample)
+process_data <- function(df=data){#
+	require(plyr)#
+	df$tt <- paste(df$ts, df$tower, sep="_") # creates unique identifier at each ts #
+											 # for each tower#
+	df %<% split(df, df$tt) %<% ldply(lapply(df, strongest_signal))#
+	return(df)#
+}
+process_data(sample)
+process_data <- function(df=data){#
+	require(plyr)#
+	df$tt <- paste(df$ts, df$tower, sep="_") # creates unique identifier at each ts #
+											 # for each tower#
+	df %.% split(df, df$tt) %.% ldply(lapply(df, strongest_signal))#
+	return(df)#
+}
+process_data(sample)
+library(magrittr)
+process_data <- function(df=data){#
+	require(plyr)#
+	df$tt <- paste(df$ts, df$tower, sep="_") # creates unique identifier at each ts #
+											 # for each tower#
+	df %.% split(df, df$tt) %.% ldply(lapply(df, strongest_signal))#
+	return(df)#
+}
+library(magrittr)
+process_data(sample)
+process_data <- function(df=data){#
+	require(plyr)#
+	df$tt <- paste(df$ts, df$tower, sep="_") # creates unique identifier at each ts #
+											 # for each tower#
+	df %<% split(df, df$tt) %<% ldply(lapply(df, strongest_signal))#
+	return(df)#
+}
+process_data(sample)
+process_data <- function(df=data){#
+	require(plyr)#
+	df$tt <- paste(df$ts, df$tower, sep="_") # creates unique identifier at each ts #
+											 # for each tower#
+	df %>% split(df, df$tt) %>% ldply(lapply(df, strongest_signal))#
+	return(df)#
+}
+process_data(sample)
+sample
+process_data <- function(df=data){#
+	require(plyr)#
+	df$tt <- paste(df$ts, df$tower, sep="_") # creates unique identifier at each ts #
+											 # for each tower#
+	df %>% split(df, df$tt) %>% lapply(strongest_signal) %>% ldply()#
+	return(df)#
+}
+sample
+process_data(sample)
+df %>% split(df, df$tt) %>% lapply(strongest_signal) %>% ldply()
+sample = df
+df %>% split(df, df$tt) %>% lapply(strongest_signal) %>% ldply()
+df %>% split(df$tt) %>% lapply(strongest_signal) %>% ldply()
+process_data <- function(df=data){#
+	require(plyr)#
+	df$tt <- paste(df$ts, df$tower, sep="_") # creates unique identifier at each ts #
+											 # for each tower#
+	df <- split(df, df$tt) # splits dataset into list with sections identified by tt				#
+	df <-  ldply(lapply(df, strongest_signal))#
+	return(df)#
+}#
+strongest_signal <- function(df){#
+	pairs <- cbind(1:nrow(df), c(2:nrow(df), 1))#
+#
+    best.row <- which.max(df$sig[pairs[,1]] + df$sig[pairs[,2]])#
+#
+    df[sort(pairs[best.row,]),]#
+}
+process_data(sample)
+process_data <- function(df=data){#
+	require(plyr)#
+	df$tt <- paste(df$ts, df$tower, sep="_") # creates unique identifier at each ts #
+											 # for each tower#
+	df <- split(df, df$tt) # splits dataset into list with sections identified by tt				#
+	df <-  ldply(lapply(df, strongest_signal))#
+	return(df)#
+}
+process_data(sample)
+sample
+ldply(sample)
+sample <- ldply(sample)
+process_data(sample)
+sample
+process_data(sample)
+sample
+names(sample)
+names(sample)[4]<-"ts"
+process_data(sample)
+sample$tt <- paste(sample$ts, sample$tower, sep="_")
+sample
+paste(sample$ts, sample$tower, sep="_")
+sample$tower
+sample$Tower
+sample$towers
+sample
+names(sample)
+library(sensorgnome)#
+library(circular)#
+source("model_selection.r")#
+source("bearing_estimator.r")#
+source("direction_finding.r")#
+#
+###
+tower1 <- list(ant1 = makeYagi(5, c(0,0,10), 0, "horizontal"),#
+			  ant2 = makeYagi(5, c(0,0,10), 60, "horizontal"),#
+			  ant3 = makeYagi(5, c(0,0,10), 120, "horizontal"),#
+			  ant4 = makeYagi(5, c(0,0,10), 180, "horizontal"),#
+			  ant5 = makeYagi(5, c(0,0,10), 240, "horizontal"),#
+			  ant6 = makeYagi(5, c(0,0,10), 300, "horizontal")#
+			  )#
+tower2 <- list(ant1 = makeYagi(5, c(100,100,10), 0, "horizontal"),#
+			   ant2 = makeYagi(5, c(100,100,10), 0, "horizontal"),#
+			   ant3 = makeYagi(5, c(100,100,10), 0, "horizontal"),#
+			   ant4 = makeYagi(5, c(100,100,10), 0, "horizontal"),#
+			   ant5 = makeYagi(5, c(100,100,10), 0, "horizontal"),#
+			   ant6 = makeYagi(5, c(0,0,10), 300, "horizontal")#
+			  )#
+tower3 <- list(ant1 = makeYagi(5, c(-50,50,10), 0, "horizontal"),#
+			   ant2 = makeYagi(5, c(-50,50,10), 0, "horizontal"),#
+			   ant3 = makeYagi(5, c(-50,50,10), 0, "horizontal"),#
+			   ant4 = makeYagi(5, c(-50,50,10), 0, "horizontal"),#
+			   ant5 = makeYagi(5, c(-50,50,10), 0, "horizontal"),#
+			   ant6 = makeYagi(5, c(-50,50,10), 0, "horizontal")#
+			  )#
+array <- list(tower1,tower2, tower3)#
+velocity = c(runif(2, -2, 2), 0)#
+#
+## constant height#
+#
+height = 10#
+#
+## centred at (0, 0, 0)#
+#
+loc0 = c(runif(2, -100, 100), height)#
+#
+## path time interval is [-100, 100] seconds; tag bursts every 5 seconds#
+#
+t = seq(from = -300, to = 300, by = 5)#
+n = length(t)#
+## path: n x 3 matrix giving x, y, z at each location#
+#
+path =  t(t(outer(t, velocity, `*`)) + loc0)#
+#
+tx = makeOmni(pos=path[1,], axis="vertical")#
+#
+## calculate relative signal strength at each receiver at each point in time#
+#
+tx$pos = path#
+#
+tower1 = lapply(tower1, function(x, y) friis(x, y), tx)#
+tower1 = stack(tower1)#
+tower1$tower = 1#
+tower2 = lapply(tower2, function(x, y) friis(x, y), tx)#
+tower2 = stack(tower2)#
+tower2$tower = 2#
+tower3 = lapply(tower3, function(x, y) friis(x, y), tx)#
+tower3 = stack(tower3)#
+tower3$tower = 3#
+### This code below processes raw data#
+### and converts into a format that is useable to the bearing estimating functions#
+### TODO: Wrap this all up into a function.#
+sample <- as.data.frame(rbind(tower1,tower2,tower3))#
+#
+names(sample) <- c("sig","ant.bearing", "tower")#
+#
+sample$t <- rep(t,6)#
+#
+levels(sample$ant.bearing) <- c(0,60,120,180,240,300)#
+#
+sample$ant.bearing <- as.numeric(as.character(sample$ant.bearing))#
+#
+sample <- sample[order(sample$t),]#
+#
+sample$tt <- paste(sample$t, sample$tower, sep="_")
+#############
+library(sensorgnome)#
+library(circular)#
+source("model_selection.r")#
+source("bearing_estimator.r")#
+source("direction_finding.r")#
+#
+###
+tower1 <- list(ant1 = makeYagi(5, c(0,0,10), 0, "horizontal"),#
+			  ant2 = makeYagi(5, c(0,0,10), 60, "horizontal"),#
+			  ant3 = makeYagi(5, c(0,0,10), 120, "horizontal"),#
+			  ant4 = makeYagi(5, c(0,0,10), 180, "horizontal"),#
+			  ant5 = makeYagi(5, c(0,0,10), 240, "horizontal"),#
+			  ant6 = makeYagi(5, c(0,0,10), 300, "horizontal")#
+			  )#
+tower2 <- list(ant1 = makeYagi(5, c(100,100,10), 0, "horizontal"),#
+			   ant2 = makeYagi(5, c(100,100,10), 0, "horizontal"),#
+			   ant3 = makeYagi(5, c(100,100,10), 0, "horizontal"),#
+			   ant4 = makeYagi(5, c(100,100,10), 0, "horizontal"),#
+			   ant5 = makeYagi(5, c(100,100,10), 0, "horizontal"),#
+			   ant6 = makeYagi(5, c(0,0,10), 300, "horizontal")#
+			  )#
+tower3 <- list(ant1 = makeYagi(5, c(-50,50,10), 0, "horizontal"),#
+			   ant2 = makeYagi(5, c(-50,50,10), 0, "horizontal"),#
+			   ant3 = makeYagi(5, c(-50,50,10), 0, "horizontal"),#
+			   ant4 = makeYagi(5, c(-50,50,10), 0, "horizontal"),#
+			   ant5 = makeYagi(5, c(-50,50,10), 0, "horizontal"),#
+			   ant6 = makeYagi(5, c(-50,50,10), 0, "horizontal")#
+			  )#
+array <- list(tower1,tower2, tower3)#
+velocity = c(runif(2, -2, 2), 0)#
+#
+## constant height#
+#
+height = 10#
+#
+## centred at (0, 0, 0)#
+#
+loc0 = c(runif(2, -100, 100), height)#
+#
+## path time interval is [-100, 100] seconds; tag bursts every 5 seconds#
+#
+t = seq(from = -300, to = 300, by = 5)#
+n = length(t)#
+## path: n x 3 matrix giving x, y, z at each location#
+#
+path =  t(t(outer(t, velocity, `*`)) + loc0)#
+#
+tx = makeOmni(pos=path[1,], axis="vertical")#
+#
+## calculate relative signal strength at each receiver at each point in time#
+#
+tx$pos = path#
+#
+tower1 = lapply(tower1, function(x, y) friis(x, y), tx)#
+tower1 = stack(tower1)#
+tower1$tower = 1#
+tower2 = lapply(tower2, function(x, y) friis(x, y), tx)#
+tower2 = stack(tower2)#
+tower2$tower = 2#
+tower3 = lapply(tower3, function(x, y) friis(x, y), tx)#
+tower3 = stack(tower3)#
+tower3$tower = 3#
+### This code below processes raw data#
+### and converts into a format that is useable to the bearing estimating functions#
+### TODO: Wrap this all up into a function.#
+sample <- as.data.frame(rbind(tower1,tower2,tower3))#
+#
+names(sample) <- c("sig","ant.bearing", "tower")#
+#
+sample$t <- rep(t,6)#
+#
+levels(sample$ant.bearing) <- c(0,60,120,180,240,300)#
+#
+sample$ant.bearing <- as.numeric(as.character(sample$ant.bearing))#
+#
+sample <- sample[order(sample$t),]#
+#
+sample$tt <- paste(sample$t, sample$tower, sep="_")
+sample
+head(sample)
+process_data(sample)
+sample
+names(sample)[4] <-"ts"
+process_data(sample)
+process_data <- function(df=data){#
+	require(plyr)#
+	df$tt <- paste(df$ts, df$tower, sep="_") # creates unique identifier at each ts #
+											 # for each tower#
+	df <- split(df, df$tt) # splits dataset into list with sections identified by tt#
+	df <-  lapply(df, strongest_signal) # smashes things back into a data frame#
+	#df <- ldply(df)#
+	return(df)#
+}
+process_data <- function(df=data){#
+	require(plyr)#
+	df$tt <- paste(df$ts, df$tower, sep="_") # creates unique identifier at each ts #
+											 # for each tower#
+	df <- split(df, df$tt) # splits dataset into list with sections identified by tt#
+	df <-  lapply(df, strongest_signal) # smashes things back into a data frame#
+	#df <- ldply(df)#
+	return(df)#
+}#
+strongest_signal <- function(df){#
+	pairs <- cbind(1:nrow(df), c(2:nrow(df), 1))#
+#
+    best.row <- which.max(df$sig[pairs[,1]] + df$sig[pairs[,2]])#
+#
+    df[sort(pairs[best.row,]),]#
+}
+process_data(sample)
+samp <- process_data(sample)
+sampl[1]
+samp[1]
+sort(samp[1])
+sort(samp[1]$sig)
+samp[1][sort(sig),]
+order(samp[1]$sig)
+samp[[1]]
+which.max(samp[[1]]$sig)
+which.min(samp[[1]]$sig)
+which.max(samp[[1]]$sig)/which.min(samp[[1]]$sig)
+sample
+samp
+samp[length(samp)]
+samp[[length(samp)]]
+tmp <- samp[[length(samp)]]
+which.max(tmp$sig)
+which.min(tmp$sig)
+lapply(samp, which.max(sig))
+lapply(samp, which.max($sig))
+lapply(samp, function(x) which.max(x$sig))
+strongest_signal <- function(df){#
+	pairs <- cbind(1:nrow(df), c(2:nrow(df), 1))#
+#
+    best.row <- which.max(df$sig[pairs[,1]] + df$sig[pairs[,2]])#
+#
+    df[sort(pairs[best.row,]),]#
+    df[sort[df$sig,]]#
+}
+sample
+dat
+dat <- sample[1:6,]
+strongest_signal(dat)
+strongest_signal <- function(df){#
+	pairs <- cbind(1:nrow(df), c(2:nrow(df), 1))#
+#
+    best.row <- which.max(df$sig[pairs[,1]] + df$sig[pairs[,2]])#
+#
+    df[sort(pairs[best.row,]),]#
+}
+strongest_signal(dat)
+k <- strongest_signal(dat)
+k[sort(k$sig),]
+k[order(k$sig),]
+strongest_signal <- function(df){#
+	pairs <- cbind(1:nrow(df), c(2:nrow(df), 1))#
+#
+    best.row <- which.max(df$sig[pairs[,1]] + df$sig[pairs[,2]])#
+#
+    df[sort(pairs[best.row,]),]#
+    df[order[df$sig],]#
+}
+strongest_signal(dat)
+strongest_signal <- function(df){#
+	pairs <- cbind(1:nrow(df), c(2:nrow(df), 1))#
+#
+    best.row <- which.max(df$sig[pairs[,1]] + df$sig[pairs[,2]])#
+#
+    df[sort(pairs[best.row,]),]#
+    df[order(df$sig),]#
+}
+strongest_signal(dat)
+strongest_signal <- function(df){#
+	pairs <- cbind(1:nrow(df), c(2:nrow(df), 1))#
+#
+    best.row <- which.max(df$sig[pairs[,1]] + df$sig[pairs[,2]])#
+#
+    df <- df[sort(pairs[best.row,]),]#
+    df[order(df$sig),]#
+}
+strongest_signal(dat)
+process_data(sample)
+dat<- process_data(sample)
+lapply(dat, function(x) which.max(x$sig))
+dat
+dat[[1]]
+tmp <- dat[[1]]
+which.max(tmp$sig)
+process_data <- function(df=data){#
+	require(plyr)#
+	df$tt <- paste(df$ts, df$tower, sep="_") # creates unique identifier at each ts #
+											 # for each tower#
+	df <- split(df, df$tt) # splits dataset into list with sections identified by tt#
+	df <-  lapply(df, strongest_signal) # smashes things back into a data frame#
+	#df <- ldply(df)#
+	return(df)#
+}#
+strongest_signal <- function(df){#
+	pairs <- cbind(1:nrow(df), c(2:nrow(df), 1))#
+#
+    best.row <- which.max(df$sig[pairs[,1]] + df$sig[pairs[,2]])#
+#
+    df <- df[sort(pairs[best.row,]),]#
+    df[order(df$sig),]#
+}
+process_data(sample)
+samp <- process_data(sample)
+lapply(samp, function(x) which.max(samp$sig))
+lapply(samp, function(x) which.max(x$sig))
+strongest_signal <- function(df){#
+	pairs <- cbind(1:nrow(df), c(2:nrow(df), 1))#
+#
+    best.row <- which.max(df$sig[pairs[,1]] + df$sig[pairs[,2]])#
+#
+    df <- df[sort(pairs[best.row,]),]#
+    df[order(df$sig),]#
+}
+sample
+samp <- sample[1:6,]
+strongest_signal(samp)
+test <- strongest_signal(samp)
+which.max(test$sig)
+strongest_signal <- function(df){#
+	pairs <- cbind(1:nrow(df), c(2:nrow(df), 1))#
+#
+    best.row <- which.max(df$sig[pairs[,1]] + df$sig[pairs[,2]])#
+    df <- df[sort(pairs[best.row,]),]#
+    print(df)#
+    df <- df[order(df$sig),]#
+    print(df)#
+}
+strongest_signal(samp)
+test[order(test$sig),]
+strongest_signal <- function(df){#
+	pairs <- cbind(1:nrow(df), c(2:nrow(df), 1))#
+#
+    best.row <- which.max(df$sig[pairs[,1]] + df$sig[pairs[,2]])#
+    df <- df[sort(pairs[best.row,]),]#
+#
+    df <- df[sort(df$sig),]#
+#
+}
+process_data(sample)
+sample
+test
+test <- sample[1:6,]
+strongest_signal(test)
+strongest_signal <- function(df){#
+	pairs <- cbind(1:nrow(df), c(2:nrow(df), 1))#
+#
+    best.row <- which.max(df$sig[pairs[,1]] + df$sig[pairs[,2]])#
+    df <- df[sort(pairs[best.row,]),]#
+#
+    df[sort(df$sig),]#
+#
+}
+strongest_signal(test)
+test
+strongest_signal(test)
+strongest_signal <- function(df){#
+	pairs <- cbind(1:nrow(df), c(2:nrow(df), 1))#
+#
+    best.row <- which.max(df$sig[pairs[,1]] + df$sig[pairs[,2]])#
+    df <- df[sort(pairs[best.row,]),]#
+#
+    df[order(df$sig, decreasing=T),]#
+#
+}
+strongest_signal(test)
+process_data <- function(df=data){#
+	require(plyr)#
+	df$tt <- paste(df$ts, df$tower, sep="_") # creates unique identifier at each ts #
+											 # for each tower#
+	df <- split(df, df$tt) # splits dataset into list with sections identified by tt#
+	df <-  lapply(df, strongest_signal) # smashes things back into a data frame#
+	#df <- ldply(df)#
+	return(df)#
+}#
+strongest_signal <- function(df){#
+	pairs <- cbind(1:nrow(df), c(2:nrow(df), 1))#
+#
+    best.row <- which.max(df$sig[pairs[,1]] + df$sig[pairs[,2]])#
+    df <- df[sort(pairs[best.row,]),]#
+#
+    df[order(df$sig, decreasing=T),]#
+#
+}
+process_data(sample)
+dat <- process_data(sample)
+lapply(dat, function(x) which.max(x$sig))
+ldply(lapply(dat, function(x) which.max(x$sig)))
+mean(ldply(lapply(dat, function(x) which.max(x$sig))))
+mean(ldply(lapply(dat, function(x) which.max(x$sig)))$V1)
+sample
+dat
+tower1 <- list(ant1 = makeYagi(5, c(0,0,10), 0, "horizontal"),#
+			  ant2 = makeYagi(5, c(0,0,10), 60, "horizontal"),#
+			  ant3 = makeYagi(5, c(0,0,10), 120, "horizontal"),#
+			  ant4 = makeYagi(5, c(0,0,10), 180, "horizontal"),#
+			  ant5 = makeYagi(5, c(0,0,10), 240, "horizontal"),#
+			  ant6 = makeYagi(5, c(0,0,10), 300, "horizontal")#
+			  )#
+tower2 <- list(ant1 = makeYagi(5, c(100,100,10), 0, "horizontal"),#
+			   ant2 = makeYagi(5, c(100,100,10), 60, "horizontal"),#
+			   ant3 = makeYagi(5, c(100,100,10), 120, "horizontal"),#
+			   ant4 = makeYagi(5, c(100,100,10), 180, "horizontal"),#
+			   ant5 = makeYagi(5, c(100,100,10), 240, "horizontal"),#
+			   ant6 = makeYagi(5, c(100,100,10), 300, "horizontal")#
+			  )#
+tower3 <- list(ant1 = makeYagi(5, c(-50,50,10), 0, "horizontal"),#
+			   ant2 = makeYagi(5, c(-50,50,10), 60, "horizontal"),#
+			   ant3 = makeYagi(5, c(-50,50,10), 120, "horizontal"),#
+			   ant4 = makeYagi(5, c(-50,50,10), 180, "horizontal"),#
+			   ant5 = makeYagi(5, c(-50,50,10), 240, "horizontal"),#
+			   ant6 = makeYagi(5, c(-50,50,10), 300, "horizontal")#
+			  )#
+array <- list(tower1,tower2, tower3)#
+velocity = c(runif(2, -2, 2), 0)#
+#
+## constant height#
+#
+height = 10#
+#
+## centred at (0, 0, 0)#
+#
+loc0 = c(runif(2, -100, 100), height)#
+#
+## path time interval is [-100, 100] seconds; tag bursts every 5 seconds#
+#
+t = seq(from = -300, to = 300, by = 5)#
+n = length(t)#
+## path: n x 3 matrix giving x, y, z at each location#
+#
+path =  t(t(outer(t, velocity, `*`)) + loc0)#
+#
+tx = makeOmni(pos=path[1,], axis="vertical")#
+#
+## calculate relative signal strength at each receiver at each point in time#
+#
+tx$pos = path#
+#
+tower1 = lapply(tower1, function(x, y) friis(x, y), tx)#
+tower1 = stack(tower1)#
+tower1$tower = 1#
+tower2 = lapply(tower2, function(x, y) friis(x, y), tx)#
+tower2 = stack(tower2)#
+tower2$tower = 2#
+tower3 = lapply(tower3, function(x, y) friis(x, y), tx)#
+tower3 = stack(tower3)#
+tower3$tower = 3#
+### This code below processes raw data#
+### and converts into a format that is useable to the bearing estimating functions#
+### TODO: Wrap this all up into a function.#
+sample <- as.data.frame(rbind(tower1,tower2,tower3))#
+#
+names(sample) <- c("sig","ant.bearing", "tower")#
+#
+sample$ts <- rep(t,6)#
+#
+levels(sample$ant.bearing) <- c(0,60,120,180,240,300)#
+#
+sample$ant.bearing <- as.numeric(as.character(sample$ant.bearing))#
+#
+sample <- sample[order(sample$ts),]#
+#
+#sample$tt <- paste(sample$ts, sample$tower, sep="_")#
+############################################################################
+## Analyzing Sim Data#
+############################################################################
+#
+dat  <- process_data(sample)#
+#
+fdat <- ldply(lapply(dat, function(x) bearing_estimator(model.fit=fit, df=x, GroundTruthing=F)))#
+#
+fdat <- fdat[order(fdat$ts),]#
+## Checking the accuracy and precresion of the estimated bearings#
+#
+tower_locs <- data.frame(x=c(0,100,-50),y=c(0,100,50))#
+bearing=matrix(nrow=nrow(path), ncol=nrow(tower_locs))#
+for (i in 1:nrow(path)){#
+	for (j in 1:nrow(tower_locs)){#
+	bearing[i,j] <- get_degree(c(tower_locs$y[j],tower_locs$x[j]), c(path[i,1], path[i,2]))#
+	}#
+}#
+fdat <- fdat[order(fdat$tower),]#
+#
+fdat$t_bearing <-  stack(data.frame(bearing))$values#
+## DEBUGGING#
+#
+plot(path[,2]~path[,1], xlim=c(-600,600), ylim=c(-600,600))#
+abline(v=0,h=0)#
+points(x=tower_locs$x, y=tower_locs$y, pch=c("1","2","3"))
+library(sensorgnome)#
+library(circular)#
+#
+source("./rf_triangulation/bearing_estimator.r")#
+source("./rf_triangulation/process_data.r")#
+source("./rf_triangulation/get_degree.r")#
+#
+load("my_model1.rda")#
+sample_row <- function(x, dat){#
+			 samp <- runif(x, min=1, max=nrow(dat))	#
+			 return(dat[samp,])#
+			 }	  #
+############################################################################
+## Creating Simulated Dataset#
+############################################################################
+#
+###
+#
+tower1 <- list(ant1 = makeYagi(5, c(0,0,10), 0, "horizontal"),#
+			  ant2 = makeYagi(5, c(0,0,10), 60, "horizontal"),#
+			  ant3 = makeYagi(5, c(0,0,10), 120, "horizontal"),#
+			  ant4 = makeYagi(5, c(0,0,10), 180, "horizontal"),#
+			  ant5 = makeYagi(5, c(0,0,10), 240, "horizontal"),#
+			  ant6 = makeYagi(5, c(0,0,10), 300, "horizontal")#
+			  )#
+tower2 <- list(ant1 = makeYagi(5, c(100,100,10), 0, "horizontal"),#
+			   ant2 = makeYagi(5, c(100,100,10), 60, "horizontal"),#
+			   ant3 = makeYagi(5, c(100,100,10), 120, "horizontal"),#
+			   ant4 = makeYagi(5, c(100,100,10), 180, "horizontal"),#
+			   ant5 = makeYagi(5, c(100,100,10), 240, "horizontal"),#
+			   ant6 = makeYagi(5, c(100,100,10), 300, "horizontal")#
+			  )#
+tower3 <- list(ant1 = makeYagi(5, c(-50,50,10), 0, "horizontal"),#
+			   ant2 = makeYagi(5, c(-50,50,10), 60, "horizontal"),#
+			   ant3 = makeYagi(5, c(-50,50,10), 120, "horizontal"),#
+			   ant4 = makeYagi(5, c(-50,50,10), 180, "horizontal"),#
+			   ant5 = makeYagi(5, c(-50,50,10), 240, "horizontal"),#
+			   ant6 = makeYagi(5, c(-50,50,10), 300, "horizontal")#
+			  )#
+array <- list(tower1,tower2, tower3)#
+velocity = c(runif(2, -2, 2), 0)#
+#
+## constant height#
+#
+height = 10#
+#
+## centred at (0, 0, 0)#
+#
+loc0 = c(runif(2, -100, 100), height)#
+#
+## path time interval is [-100, 100] seconds; tag bursts every 5 seconds#
+#
+t = seq(from = -300, to = 300, by = 5)#
+n = length(t)#
+## path: n x 3 matrix giving x, y, z at each location#
+#
+path =  t(t(outer(t, velocity, `*`)) + loc0)#
+#
+tx = makeOmni(pos=path[1,], axis="vertical")#
+#
+## calculate relative signal strength at each receiver at each point in time#
+#
+tx$pos = path#
+#
+tower1 = lapply(tower1, function(x, y) friis(x, y), tx)#
+tower1 = stack(tower1)#
+tower1$tower = 1#
+tower2 = lapply(tower2, function(x, y) friis(x, y), tx)#
+tower2 = stack(tower2)#
+tower2$tower = 2#
+tower3 = lapply(tower3, function(x, y) friis(x, y), tx)#
+tower3 = stack(tower3)#
+tower3$tower = 3#
+### This code below processes raw data#
+### and converts into a format that is useable to the bearing estimating functions#
+### TODO: Wrap this all up into a function.#
+sample <- as.data.frame(rbind(tower1,tower2,tower3))#
+#
+names(sample) <- c("sig","ant.bearing", "tower")#
+#
+sample$ts <- rep(t,6)#
+#
+levels(sample$ant.bearing) <- c(0,60,120,180,240,300)#
+#
+sample$ant.bearing <- as.numeric(as.character(sample$ant.bearing))#
+#
+sample <- sample[order(sample$ts),]#
+#
+#sample$tt <- paste(sample$ts, sample$tower, sep="_")#
+############################################################################
+## Analyzing Sim Data#
+############################################################################
+#
+dat  <- process_data(sample)#
+#
+fdat <- ldply(lapply(dat, function(x) bearing_estimator(model.fit=fit, df=x, GroundTruthing=F)))#
+#
+fdat <- fdat[order(fdat$ts),]#
+## Checking the accuracy and precresion of the estimated bearings#
+#
+tower_locs <- data.frame(x=c(0,100,-50),y=c(0,100,50))#
+bearing=matrix(nrow=nrow(path), ncol=nrow(tower_locs))#
+for (i in 1:nrow(path)){#
+	for (j in 1:nrow(tower_locs)){#
+	bearing[i,j] <- get_degree(c(tower_locs$y[j],tower_locs$x[j]), c(path[i,1], path[i,2]))#
+	}#
+}#
+fdat <- fdat[order(fdat$tower),]#
+#
+fdat$t_bearing <-  stack(data.frame(bearing))$values#
+## DEBUGGING#
+#
+plot(path[,2]~path[,1], xlim=c(-600,600), ylim=c(-600,600))#
+abline(v=0,h=0)#
+points(x=tower_locs$x, y=tower_locs$y, pch=c("1","2","3"))
+source("./rf_triangulation/get_degree.r")
+deg <- 0:359
+x=sin(deg)
+y=cos(deg)
+x
+plot(y~x)
+plot(y~x, pch=deg)
+plot(y~x, pch=as.character(deg))
+deg
+plot(y~x, pch=as.character(deg))
+plot(y[1]~x[1],)
+plot(y[1:50]~x[1:50],)
+plot(y[1:50]~x[1:50],pch(deg(1:50)))
+plot(y[1:50]~x[1:50],pch=deg[1:50]))
+plot(y[1:50]~x[1:50],pch=deg[1:50])
+plot(y[1:50]~x[1:50],pch=as.character(deg[1:50]))
+sample_row(d)
+y[runif(10, min=0, max=length(y))]
+plot(y[runif(10, min=0, max=length(y))]~x[runif(10, min=0, max=length(y))])
+library(sensorgnome)#
+library(circular)#
+#
+source("./rf_triangulation/bearing_estimator.r")#
+source("./rf_triangulation/process_data.r")#
+source("./rf_triangulation/get_degree.r")#
+#
+load("my_model1.rda")#
+sample_row <- function(x, dat){#
+			 samp <- runif(x, min=1, max=nrow(dat))	#
+			 return(dat[samp,])#
+			 }
