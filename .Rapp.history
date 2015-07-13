@@ -1,4 +1,3 @@
-windowApply(time,temp,50, mean)
 df <- data.frame(time=time, temp=temp)
 windowApply(df$time,df$temp,50, mean)
 windowApply(df$time,df$temp,5, mean)
@@ -1072,3 +1071,15 @@ plot(y[1:50]~x[1:50],pch=as.character(deg[1:50]))
 sample_row(d)
 y[runif(10, min=0, max=length(y))]
 plot(y[runif(10, min=0, max=length(y))]~x[runif(10, min=0, max=length(y))])
+library(sensorgnome)#
+library(circular)#
+#
+source("./rf_triangulation/bearing_estimator.r")#
+source("./rf_triangulation/process_data.r")#
+source("./rf_triangulation/get_degree.r")#
+#
+load("my_model1.rda")#
+sample_row <- function(x, dat){#
+			 samp <- runif(x, min=1, max=nrow(dat))	#
+			 return(dat[samp,])#
+			 }

@@ -8,11 +8,12 @@
 ## @param data = NULL: set to df with ground truth'd data
 ##
 ##
-##
+## TODO: 1) Add simulation capability with general antenna setups
+##		 2) incorporate groundtruthing functionality
 
 model_selection <- function(simulate=T, data=NULL){
 		
-	df           = data # rename datafile
+	df = data # rename datafile
 		
 	if (simulate=T)
 		 ## create new dataset from simulated data
@@ -21,7 +22,7 @@ model_selection <- function(simulate=T, data=NULL){
 									## seperated by timestamps
 					        			## for each ts, subset the data by the 2 strongest antennas
 	
-	tmp <- ldply(lapply(tmp, function(x) bearing_estimator(model.fit=NULL, df=x, GroundTruthing=T)))
+	tmp <- ldply(lapply(tmp, function(x) bearing_estimator(model.fit=NULL, df=x, GroundTruthing=F)))
 
 	
 	

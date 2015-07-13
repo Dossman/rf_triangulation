@@ -4,7 +4,10 @@
 ## neighboring antennas. Output will consist of t (timestep), towers (for which a tag was 
 ## detected), antenna bearing with max signal strength, signal strength for that antenna, 
 ## antenna bearing with next strongest singal, and signal strength for that antenna.
-
+## 
+## TODO: 1) accomodate raw receiver output a la SG formatting
+##       2) update strongest_signal fn to accomodate MISSING data (i.e missed signal detections on antennas)
+##		 3) work on more robust version of strongest_signal
 
 process_data <- function(df=data, model.fit=fit){
 	require(plyr)
