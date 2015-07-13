@@ -1,21 +1,3 @@
-apply.rolling(managers[,1,drop=FALSE], FUN="mean", width=12, na.rm=T)
-apply.rolling(managers[,1,drop=FALSE], FUN="mean", width=35, na.rm=T)
-managers[,1, drop=FALSE]
-apply.rolling(managers[,1,drop=FALSE], FUN="mean", width=35, na.rm=T)
-apply.rolling(managers[,1,drop=FALSE], FUN="mean", width=36, na.rm=T)
-nrow(apply.rolling(managers[,1,drop=FALSE], FUN="mean", width=36, na.rm=T))
-nrow(managers[,1, drop=FALSE])
-nrow(apply.rolling(managers[,1,drop=FALSE], FUN="mean", width=360, na.rm=T))
-nrow(apply.rolling(managers[,1,drop=FALSE], FUN="mean", width=100, na.rm=T))
-nrow(apply.rolling(managers[,1,drop=FALSE], FUN="mean", width=12, na.rm=T))
-nrow(apply.rolling(managers[,1,drop=FALSE], FUN="mean", width=12))
-nrow(apply.rolling(managers[,1,drop=FALSE], FUN="mean", width=36))
-time = sort(rep(seq(1:100)))
-time
-temp
-temp = rnorm(100, time*2+20, 6)
-windowApply(time,temp,w=5, mean)
-windowApply(time,temp,5, mean)
 windowApply(time,temp,50, mean)
 df <- data.frame(time=time, temp=temp)
 windowApply(df$time,df$temp,50, mean)
@@ -859,3 +841,234 @@ mean(ldply(lapply(dat, function(x) which.max(x$sig))))
 mean(ldply(lapply(dat, function(x) which.max(x$sig)))$V1)
 sample
 dat
+tower1 <- list(ant1 = makeYagi(5, c(0,0,10), 0, "horizontal"),#
+			  ant2 = makeYagi(5, c(0,0,10), 60, "horizontal"),#
+			  ant3 = makeYagi(5, c(0,0,10), 120, "horizontal"),#
+			  ant4 = makeYagi(5, c(0,0,10), 180, "horizontal"),#
+			  ant5 = makeYagi(5, c(0,0,10), 240, "horizontal"),#
+			  ant6 = makeYagi(5, c(0,0,10), 300, "horizontal")#
+			  )#
+tower2 <- list(ant1 = makeYagi(5, c(100,100,10), 0, "horizontal"),#
+			   ant2 = makeYagi(5, c(100,100,10), 60, "horizontal"),#
+			   ant3 = makeYagi(5, c(100,100,10), 120, "horizontal"),#
+			   ant4 = makeYagi(5, c(100,100,10), 180, "horizontal"),#
+			   ant5 = makeYagi(5, c(100,100,10), 240, "horizontal"),#
+			   ant6 = makeYagi(5, c(100,100,10), 300, "horizontal")#
+			  )#
+tower3 <- list(ant1 = makeYagi(5, c(-50,50,10), 0, "horizontal"),#
+			   ant2 = makeYagi(5, c(-50,50,10), 60, "horizontal"),#
+			   ant3 = makeYagi(5, c(-50,50,10), 120, "horizontal"),#
+			   ant4 = makeYagi(5, c(-50,50,10), 180, "horizontal"),#
+			   ant5 = makeYagi(5, c(-50,50,10), 240, "horizontal"),#
+			   ant6 = makeYagi(5, c(-50,50,10), 300, "horizontal")#
+			  )#
+array <- list(tower1,tower2, tower3)#
+velocity = c(runif(2, -2, 2), 0)#
+#
+## constant height#
+#
+height = 10#
+#
+## centred at (0, 0, 0)#
+#
+loc0 = c(runif(2, -100, 100), height)#
+#
+## path time interval is [-100, 100] seconds; tag bursts every 5 seconds#
+#
+t = seq(from = -300, to = 300, by = 5)#
+n = length(t)#
+## path: n x 3 matrix giving x, y, z at each location#
+#
+path =  t(t(outer(t, velocity, `*`)) + loc0)#
+#
+tx = makeOmni(pos=path[1,], axis="vertical")#
+#
+## calculate relative signal strength at each receiver at each point in time#
+#
+tx$pos = path#
+#
+tower1 = lapply(tower1, function(x, y) friis(x, y), tx)#
+tower1 = stack(tower1)#
+tower1$tower = 1#
+tower2 = lapply(tower2, function(x, y) friis(x, y), tx)#
+tower2 = stack(tower2)#
+tower2$tower = 2#
+tower3 = lapply(tower3, function(x, y) friis(x, y), tx)#
+tower3 = stack(tower3)#
+tower3$tower = 3#
+### This code below processes raw data#
+### and converts into a format that is useable to the bearing estimating functions#
+### TODO: Wrap this all up into a function.#
+sample <- as.data.frame(rbind(tower1,tower2,tower3))#
+#
+names(sample) <- c("sig","ant.bearing", "tower")#
+#
+sample$ts <- rep(t,6)#
+#
+levels(sample$ant.bearing) <- c(0,60,120,180,240,300)#
+#
+sample$ant.bearing <- as.numeric(as.character(sample$ant.bearing))#
+#
+sample <- sample[order(sample$ts),]#
+#
+#sample$tt <- paste(sample$ts, sample$tower, sep="_")#
+############################################################################
+## Analyzing Sim Data#
+############################################################################
+#
+dat  <- process_data(sample)#
+#
+fdat <- ldply(lapply(dat, function(x) bearing_estimator(model.fit=fit, df=x, GroundTruthing=F)))#
+#
+fdat <- fdat[order(fdat$ts),]#
+## Checking the accuracy and precresion of the estimated bearings#
+#
+tower_locs <- data.frame(x=c(0,100,-50),y=c(0,100,50))#
+bearing=matrix(nrow=nrow(path), ncol=nrow(tower_locs))#
+for (i in 1:nrow(path)){#
+	for (j in 1:nrow(tower_locs)){#
+	bearing[i,j] <- get_degree(c(tower_locs$y[j],tower_locs$x[j]), c(path[i,1], path[i,2]))#
+	}#
+}#
+fdat <- fdat[order(fdat$tower),]#
+#
+fdat$t_bearing <-  stack(data.frame(bearing))$values#
+## DEBUGGING#
+#
+plot(path[,2]~path[,1], xlim=c(-600,600), ylim=c(-600,600))#
+abline(v=0,h=0)#
+points(x=tower_locs$x, y=tower_locs$y, pch=c("1","2","3"))
+library(sensorgnome)#
+library(circular)#
+#
+source("./rf_triangulation/bearing_estimator.r")#
+source("./rf_triangulation/process_data.r")#
+source("./rf_triangulation/get_degree.r")#
+#
+load("my_model1.rda")#
+sample_row <- function(x, dat){#
+			 samp <- runif(x, min=1, max=nrow(dat))	#
+			 return(dat[samp,])#
+			 }	  #
+############################################################################
+## Creating Simulated Dataset#
+############################################################################
+#
+###
+#
+tower1 <- list(ant1 = makeYagi(5, c(0,0,10), 0, "horizontal"),#
+			  ant2 = makeYagi(5, c(0,0,10), 60, "horizontal"),#
+			  ant3 = makeYagi(5, c(0,0,10), 120, "horizontal"),#
+			  ant4 = makeYagi(5, c(0,0,10), 180, "horizontal"),#
+			  ant5 = makeYagi(5, c(0,0,10), 240, "horizontal"),#
+			  ant6 = makeYagi(5, c(0,0,10), 300, "horizontal")#
+			  )#
+tower2 <- list(ant1 = makeYagi(5, c(100,100,10), 0, "horizontal"),#
+			   ant2 = makeYagi(5, c(100,100,10), 60, "horizontal"),#
+			   ant3 = makeYagi(5, c(100,100,10), 120, "horizontal"),#
+			   ant4 = makeYagi(5, c(100,100,10), 180, "horizontal"),#
+			   ant5 = makeYagi(5, c(100,100,10), 240, "horizontal"),#
+			   ant6 = makeYagi(5, c(100,100,10), 300, "horizontal")#
+			  )#
+tower3 <- list(ant1 = makeYagi(5, c(-50,50,10), 0, "horizontal"),#
+			   ant2 = makeYagi(5, c(-50,50,10), 60, "horizontal"),#
+			   ant3 = makeYagi(5, c(-50,50,10), 120, "horizontal"),#
+			   ant4 = makeYagi(5, c(-50,50,10), 180, "horizontal"),#
+			   ant5 = makeYagi(5, c(-50,50,10), 240, "horizontal"),#
+			   ant6 = makeYagi(5, c(-50,50,10), 300, "horizontal")#
+			  )#
+array <- list(tower1,tower2, tower3)#
+velocity = c(runif(2, -2, 2), 0)#
+#
+## constant height#
+#
+height = 10#
+#
+## centred at (0, 0, 0)#
+#
+loc0 = c(runif(2, -100, 100), height)#
+#
+## path time interval is [-100, 100] seconds; tag bursts every 5 seconds#
+#
+t = seq(from = -300, to = 300, by = 5)#
+n = length(t)#
+## path: n x 3 matrix giving x, y, z at each location#
+#
+path =  t(t(outer(t, velocity, `*`)) + loc0)#
+#
+tx = makeOmni(pos=path[1,], axis="vertical")#
+#
+## calculate relative signal strength at each receiver at each point in time#
+#
+tx$pos = path#
+#
+tower1 = lapply(tower1, function(x, y) friis(x, y), tx)#
+tower1 = stack(tower1)#
+tower1$tower = 1#
+tower2 = lapply(tower2, function(x, y) friis(x, y), tx)#
+tower2 = stack(tower2)#
+tower2$tower = 2#
+tower3 = lapply(tower3, function(x, y) friis(x, y), tx)#
+tower3 = stack(tower3)#
+tower3$tower = 3#
+### This code below processes raw data#
+### and converts into a format that is useable to the bearing estimating functions#
+### TODO: Wrap this all up into a function.#
+sample <- as.data.frame(rbind(tower1,tower2,tower3))#
+#
+names(sample) <- c("sig","ant.bearing", "tower")#
+#
+sample$ts <- rep(t,6)#
+#
+levels(sample$ant.bearing) <- c(0,60,120,180,240,300)#
+#
+sample$ant.bearing <- as.numeric(as.character(sample$ant.bearing))#
+#
+sample <- sample[order(sample$ts),]#
+#
+#sample$tt <- paste(sample$ts, sample$tower, sep="_")#
+############################################################################
+## Analyzing Sim Data#
+############################################################################
+#
+dat  <- process_data(sample)#
+#
+fdat <- ldply(lapply(dat, function(x) bearing_estimator(model.fit=fit, df=x, GroundTruthing=F)))#
+#
+fdat <- fdat[order(fdat$ts),]#
+## Checking the accuracy and precresion of the estimated bearings#
+#
+tower_locs <- data.frame(x=c(0,100,-50),y=c(0,100,50))#
+bearing=matrix(nrow=nrow(path), ncol=nrow(tower_locs))#
+for (i in 1:nrow(path)){#
+	for (j in 1:nrow(tower_locs)){#
+	bearing[i,j] <- get_degree(c(tower_locs$y[j],tower_locs$x[j]), c(path[i,1], path[i,2]))#
+	}#
+}#
+fdat <- fdat[order(fdat$tower),]#
+#
+fdat$t_bearing <-  stack(data.frame(bearing))$values#
+## DEBUGGING#
+#
+plot(path[,2]~path[,1], xlim=c(-600,600), ylim=c(-600,600))#
+abline(v=0,h=0)#
+points(x=tower_locs$x, y=tower_locs$y, pch=c("1","2","3"))
+source("./rf_triangulation/get_degree.r")
+deg <- 0:359
+x=sin(deg)
+y=cos(deg)
+x
+plot(y~x)
+plot(y~x, pch=deg)
+plot(y~x, pch=as.character(deg))
+deg
+plot(y~x, pch=as.character(deg))
+plot(y[1]~x[1],)
+plot(y[1:50]~x[1:50],)
+plot(y[1:50]~x[1:50],pch(deg(1:50)))
+plot(y[1:50]~x[1:50],pch=deg[1:50]))
+plot(y[1:50]~x[1:50],pch=deg[1:50])
+plot(y[1:50]~x[1:50],pch=as.character(deg[1:50]))
+sample_row(d)
+y[runif(10, min=0, max=length(y))]
+plot(y[runif(10, min=0, max=length(y))]~x[runif(10, min=0, max=length(y))])
